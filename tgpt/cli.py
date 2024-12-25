@@ -1,17 +1,13 @@
 import argparse
 import os
 import subprocess
+import re
 from tgpt.plugins.plugin_manager import PluginManager
+from tgpt.prompts import SYSTEM_PROMPT
 from tgpt.gpt import GPTWrapper
 
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-SYSTEM_PROMPT = None
-prompt_file_path = os.path.join(os.path.dirname(__file__), "prompts", "system_prompt.txt")
-if os.path.exists(prompt_file_path):
-    with open(prompt_file_path, "r") as file:
-        SYSTEM_PROMPT = file.read().strip()
 
 
 def execute_command(command):
@@ -29,12 +25,31 @@ def process_input(gpt_client, prompt):
             context = {}
             return plugin.run(prompt, context)
 
-    # Use GPTWrapper to generate a command from the prompt
-    return gpt_client.send_with_log(prompt)
+    # LLM Call
+    response = gpt_client.send_with_log(prompt)
+    print (response)
+    
+    # Check for <bash> tags in the response, and if to execute
+    match = re.search(r"<bash>(.*?)</bash>", response, re.DOTALL)
+    if match:
+        command = match.group(1).strip()
+        print(f"Detected Command: {command}")
+
+        # Ask for confirmation to execute the command
+        execute = input("Execute this command? (Y/n): ").strip().lower()
+        if execute in ("", "y", "yes"):
+            output = execute_command(command)
+            print(output)
+    else:
+        print("No command detected in the response.")
+
+    return response
+
 
 
 def start_chat_mode():
     print("Chat mode enabled. Type 'exit' to quit.")
+    print(SYSTEM_PROMPT)
     gpt_client = GPTWrapper(api_key=OPENAI_API_KEY, system_prompt=SYSTEM_PROMPT)
 
     while True:
@@ -43,13 +58,7 @@ def start_chat_mode():
             print("Exiting chat mode.")
             break
 
-        result = process_input(gpt_client, user_input)
-
-        print(f"Generated Command: {result}")
-        execute = input("Execute this command? (y/n): ").strip().lower()
-        if execute == "y":
-            output = execute_command(result)
-            print(output)
+        process_input(gpt_client, user_input)
 
 
 def main():

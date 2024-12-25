@@ -24,8 +24,7 @@ class GPTWrapper:
         if use_log:
             self.conversation_log.append(response.choices[0].message)
 
-        import pdb; pdb.set_trace()
-        return response.choices[0].message['content'].strip()
+        return response.choices[0].message.content.strip()
 
     def send_with_log(self, prompt):
         response = self._send_request(prompt, use_log=True)
