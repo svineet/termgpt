@@ -25,6 +25,18 @@ class GPTWrapper:
             self.conversation_log.append(response.choices[0].message)
 
         return response.choices[0].message.content.strip()
+    def add_post_execution_context(self, command, output):
+        """
+        Adds post-execution context to the conversation log.
+
+        Parameters:
+        - command (str): The command that was executed.
+        - output (str): The output of the executed command.
+        """
+        self.conversation_log.append(
+            {"role": "user",
+             "content": f"<executor>\nCommand: {command}\nOutput:\n{output}"}
+        )
 
     def send_with_log(self, prompt):
         response = self._send_request(prompt, use_log=True)
