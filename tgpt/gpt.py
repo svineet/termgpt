@@ -25,6 +25,7 @@ class GPTWrapper:
             self.conversation_log.append(response.choices[0].message)
 
         return response.choices[0].message.content.strip()
+
     def add_post_execution_context(self, command, output):
         """
         Adds post-execution context to the conversation log.
