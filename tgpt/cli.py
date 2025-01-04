@@ -70,8 +70,10 @@ def main():
     PluginManager.load_plugins()
 
     if args.prompt:
+        gpt_client = GPTWrapper(api_key=OPENAI_API_KEY, system_prompt=SYSTEM_PROMPT)
         prompt = " ".join(args.prompt)
-        result = process_input(prompt)
+        print (args.prompt)
+        result = process_input(gpt_client, prompt)
         print(result)
     else:
         start_chat_mode()

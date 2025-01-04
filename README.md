@@ -1,14 +1,14 @@
 # TGPT: Natural Language to Bash Command Tool
 
-**TGPT** is a command-line tool that converts natural language prompts into Bash commands. It integrates with OpenAI's API and provides extensibility through a plugin system.
+**TGPT** is a command-line tool designed to transform natural language prompts into Bash commands. It leverages OpenAI's API and offers extensibility through a robust plugin system.
 
 ---
 
 ## Features
 
-- Convert natural language to Bash commands.
-- Execute or refine commands in an interactive chat mode.
-- Extend functionality via plugins (e.g., `@web` for internet searches).
+- Seamlessly convert natural language into Bash commands.
+- Execute commands interactively in a chat mode.
+- Enhance functionality with plugins (e.g., `@web` for internet searches).
 
 ---
 
@@ -27,11 +27,11 @@
    cd tgpt
    ```
 
-2. **Install Dependencies:**
+2. **Install the Package:**
 
    Using pip:
    ```bash
-   python3 -m pip install -r requirements.txt
+   python3 -m pip install .
    ```
 
    Or, using pipx for isolation:
@@ -50,10 +50,15 @@
 
    Direct mode:
    ```bash
-   tgpt "List all Python files in the current directory"
+   tgpt -p "List all Python files in the current directory"
    ```
 
    Chat mode:
    ```bash
-   tgpt -c
+   tgpt
    ```
+
+   To exit chat mode, type `exit`.
+
+---
+

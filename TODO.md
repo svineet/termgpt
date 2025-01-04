@@ -1,37 +1,45 @@
-TODO
-====
+# To-do and Ideas
 
-First step is a CLI assistnat that makes and executes commands on your behalf, and retains context of the conversation.
+## Initial Steps
+- Develop a CLI assistant that constructs and executes commands on your behalf, while maintaining the context of the conversation.
+- Enable the assistant to perform tasks autonomously.
 
-It can do stuff on your behalf.
+## Features to Implement
 
-# Add slash commands
-config for model, a direct /bash command, help
+### Slash Commands
+- Implement slash commands for:
+  - Model configuration
+  - Direct `/bash` command execution
+  - Help documentation
 
-# Use prompttoolkit henceforth for great UI and autocomplete
-## Add autocomplete powered by a small LM or some other fuzzy finding
+### User Interface Enhancements
+- Integrate `prompt_toolkit` for an improved UI experience and autocomplete functionality.
+- Add autocomplete powered by a lightweight language model or an alternative fuzzy finding method.
 
-# Takes voice input as well.
-/voice
+### Voice Input
+- Enable voice input functionality with the `/voice` command.
 
-Future aspect is an ability to plan out actions and build code repositories, and operate the computer in general. Become a full blown AI agent.
+## Future Developments
+- Enhance the assistant to plan actions, build code repositories, and operate the computer, evolving into a comprehensive AI agent.
 
-# Add long term memory
-Commands: show memory, etc
+### Long-Term Memory
+- Implement long-term memory capabilities with commands like `show memory`.
+- Introduce a `<memory>` tag to store and recall memories for long-term retention.
 
-Make a <memory> insert memories here </memory> type of output feature, so that it remembers things long term
+### Agency and Autonomy
+- Develop the ability to plan actions and persist until tasks are completed or the user intervenes.
+- Incorporate self-reflection mechanisms.
 
-# Imbue Agency: queries I would like it to work well with
+### README Enhancements
+- Revise the `README.md` to be more engaging and humorous.
+  - Steps:
+    1. Read the current README.
+    2. Rewrite it with a more lively tone.
 
-Ability to plan out actions, and not stop till the work is done, or user tells it to stop
-Add self reflection
+### Additional Tools
+- Integrate tools for web searching.
 
-V: Change up the README.md file to be more splunky and funny, rewrite it for me
-Al: Reads the readme, gets bored, rewrites it, then writes it again.
-Multistep:
-1. Read README
-2. Rewrite the README
+### Agent Deployment
+- Implement the capability to deploy autonomous agents.
 
-# Add tools like searching the web
-
-# Ability to spin up agents
+### Add type hints everywhere (make tgpt itself do it?)
