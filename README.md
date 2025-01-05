@@ -1,15 +1,12 @@
 # TermGPT: Terminal AI Agent
 
 **TermGPT** is a general Terminal AI Agent, that can search the web and execute commands from natural language instructions. It is powered by the OpenAI API, and also functions as a generic ChatGPT interface from the terminal.
----
 
 ## Features
 
 - Convert natural language into Bash commands.
 - Search the web, and incorporate those details into relevant bash commands, or just ask for the weather.
 - Execute commands interactively in chat mode.
-
----
 
 ## Installation
 
@@ -64,4 +61,3 @@
    ```
 
    To exit agent mode, type `exit`.
----
