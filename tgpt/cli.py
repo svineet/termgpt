@@ -6,7 +6,7 @@ import re
 from tgpt.plugins.plugin_manager import PluginManager
 from tgpt.prompts import SYSTEM_PROMPT
 from tgpt.gpt import GPTWrapper
-from tgpt.agent import CommandLineAgent, get_default_agent
+from tgpt.agent import get_default_agent
 
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
