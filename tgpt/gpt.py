@@ -1,7 +1,7 @@
 import openai
 
 class GPTWrapper:
-    def __init__(self, api_key, model="gpt-4o-mini", system_prompt=None):
+    def __init__(self, api_key, model="gpt-4o", system_prompt=None):
         self.api_key = api_key
         self.model = model
         self.SYSTEM_PROMPT = system_prompt

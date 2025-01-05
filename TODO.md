@@ -1,10 +1,14 @@
 # To-do and Ideas
 
 ## Initial Steps
-- Develop a CLI assistant that constructs and executes commands on your behalf, while maintaining the context of the conversation.
-- Enable the assistant to perform tasks autonomously.
+- Develop a CLI assistant that constructs and executes commands on your behalf, while maintaining the context of the conversation, by generating bash commands
+- Enable the assistant to perform tasks autonomously: plan and execute command's on user's behalf
 
-## Features to Implement
+## Features that can be implemented
+
+## More sophisticated prompting regime
+- Currently we use LangGraph's default ReAct agent. It doesn't plan. Use planning and self reflection instead.
+- Maybe even roll our own agent framework instead of having to engage with langgraph.
 
 ### Slash Commands
 - Implement slash commands for:
@@ -30,14 +34,9 @@
 - Develop the ability to plan actions and persist until tasks are completed or the user intervenes.
 - Incorporate self-reflection mechanisms.
 
-### README Enhancements
-- Revise the `README.md` to be more engaging and humorous.
-  - Steps:
-    1. Read the current README.
-    2. Rewrite it with a more lively tone.
-
 ### Additional Tools
-- Integrate tools for web searching.
+- Instead of using bash as a catch-all tool for manipulating the whole system, maybe more fine-grained tools 
+could work better
 
 ### Agent Deployment
 - Implement the capability to deploy autonomous agents.

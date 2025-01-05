@@ -21,9 +21,13 @@ classifiers = [
 ]
 dependencies = [
     "openai",
-    "requests"
+    "requests",
+    "langchain", "langgraph", "langchain-community", "langchain-openai",
+    "tavily-python"
 ]
 
 [project.scripts]
 tgpt = "tgpt.cli:main"
 
+[tool.setuptools]
+packages = ["tgpt", "experiments"]

@@ -2,14 +2,27 @@ import argparse
 import os
 import subprocess
 import re
+
 from tgpt.plugins.plugin_manager import PluginManager
 from tgpt.prompts import SYSTEM_PROMPT
 from tgpt.gpt import GPTWrapper
+from tgpt.agent import CommandLineAgent, get_default_agent
 
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    raise EnvironmentError("OPENAI_API_KEY not found in environment variables.")
+
+
 INTRODUCTION = """
-Welcome to TermGPT: AI Native Bash-ing
+
+▗▄▄▄▖▗▄▄▖▗▄▄▖▗▄▄▄▖
+  █ ▐▌   ▐▌ ▐▌ █  
+  █ ▐▌▝▜▌▐▛▀▘  █  
+  █ ▝▚▄▞▘▐▌    █  
+                  
+
+Welcome to TermGPT: Terminal AI Agent
 """
 
 
@@ -62,21 +75,35 @@ def start_chat_mode():
         process_input(gpt_client, user_input)
 
 
+def start_agent_mode():
+    print(INTRODUCTION)
+
+    TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+    if not TAVILY_API_KEY:
+        raise EnvironmentError("TAVILY_API_KEY not found in environment variables.")
+
+    agent = get_default_agent(OPENAI_API_KEY)
+    agent.start()
+
+    # Optionally, print token usage stats
+    token_usage = agent.get_token_usage()
+    print(f"Total input tokens: {token_usage['total_input_tokens']}")
+    print(f"Total output tokens: {token_usage['total_output_tokens']}")
+
+
+
 def main():
     parser = argparse.ArgumentParser(description="tgpt: Natural language to bash command tool")
-    parser.add_argument("-p", "--prompt", nargs="*", help="Natural language prompt")
+    parser.add_argument("-p", "--prompt", nargs="*", help="Enable prompt mode with natural language prompt")
 
     args = parser.parse_args()
-    PluginManager.load_plugins()
 
-    if args.prompt:
-        gpt_client = GPTWrapper(api_key=OPENAI_API_KEY, system_prompt=SYSTEM_PROMPT)
+    if args.prompt is not None:
         prompt = " ".join(args.prompt)
-        print (args.prompt)
-        result = process_input(gpt_client, prompt)
-        print(result)
+        agent = get_default_agent(OPENAI_API_KEY)
+        agent.start(one_off_prompt=prompt)
     else:
-        start_chat_mode()
+        start_agent_mode()
 
 if __name__ == "__main__":
     main()
