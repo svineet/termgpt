@@ -19,6 +19,7 @@
 ### User Interface Enhancements
 - Integrate `prompt_toolkit` for an improved UI experience and autocomplete functionality.
 - Add autocomplete powered by a lightweight language model or an alternative fuzzy finding method.
+- Make sure colours and other bash features are retained with subprocess, and handle `sudo`
 
 ### Voice Input
 - Enable voice input functionality with the `/voice` command.
@@ -30,15 +31,13 @@
 - Implement long-term memory capabilities with commands like `show memory`.
 - Introduce a `<memory>` tag to store and recall memories for long-term retention.
 
-### Agency and Autonomy
-- Develop the ability to plan actions and persist until tasks are completed or the user intervenes.
-- Incorporate self-reflection mechanisms.
-
 ### Additional Tools
 - Instead of using bash as a catch-all tool for manipulating the whole system, maybe more fine-grained tools 
 could work better
+- Add tools like GMail and GCalendar integrations, using Composio
 
-### Agent Deployment
-- Implement the capability to deploy autonomous agents.
+### Agent Mesh Deployment
+- Implement the capability to deploy autonomous agents, that `tgpt` writes itself.
+- A default network of subagents
 
 ### Add type hints everywhere (make tgpt itself do it?)
