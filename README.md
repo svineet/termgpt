@@ -1,6 +1,6 @@
-# TermGPT: Terminal AI Agent
+# tgpt: Terminal AI Agent
 
-**TermGPT** is a general Terminal AI Agent, that can search the web and execute commands from natural language instructions. It is powered by the OpenAI API, and also functions as a generic ChatGPT interface from the terminal.
+**tgpt** is a general Terminal AI Agent, that can search the web and execute commands from natural language instructions. It is powered by the OpenAI API, and also functions as a generic ChatGPT interface from the terminal.
 
 ## Features
 
@@ -20,7 +20,7 @@
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/svineet/termgpt.git
+   git clone https://github.com/svineet/termgpt.git tgpt/
    cd tgpt
    ```
 
