@@ -13,6 +13,15 @@ from langgraph.checkpoint.memory import MemorySaver
 
 from langchain_community.tools.tavily_search import TavilySearchResults
 
+from rich.console import Console
+from rich.markdown import Markdown
+
+from prompt_toolkit import PromptSession
+
+
+console = Console()
+prompt_session = PromptSession()
+
 
 @tool
 def execute_bash_command(bash_command: str) -> str:
@@ -29,7 +38,8 @@ def execute_bash_command(bash_command: str) -> str:
         str: The standard output of the executed command, or an error message if
         the command fails.
     """
-    execute = input(f"Execute the following command? \n{bash_command}\n(Y/n): ").strip().lower()
+    console.print(f"Execute the following command? \n{bash_command}\n(Y/n): ")
+    execute = prompt_session.prompt("> ").strip().lower()
     if execute not in ("", "y", "yes"):
         return "Command execution cancelled by user."
     try:
@@ -50,15 +60,16 @@ class CommandLineAgent:
         self.total_input_tokens = 0
         self.total_output_tokens = 0
 
+
     def start(self, one_off_prompt=None):
         if one_off_prompt:
             self.process_input(one_off_prompt)
             return
 
         while True:
-            user_input = input("> ").strip()
+            user_input = prompt_session.prompt("> ").strip()
             if user_input.lower() == "exit":
-                print("Exiting.")
+                console.print("Exiting.")
                 break
 
             self.process_input(user_input)
@@ -69,12 +80,13 @@ class CommandLineAgent:
         ):
             if 'agent' in chunk:
                 agent_message = chunk['agent']['messages'][0]
-                print(agent_message.content)
+                console.print(Markdown(agent_message.content), end="")
 
                 # Update token usage
                 token_usage = agent_message.response_metadata['token_usage']
                 self.total_input_tokens += token_usage['prompt_tokens']
                 self.total_output_tokens += token_usage['completion_tokens']
+        console.print()
 
     def get_token_usage(self):
         return {

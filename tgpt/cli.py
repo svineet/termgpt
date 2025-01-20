@@ -91,9 +91,8 @@ def start_agent_mode():
     print(f"Total output tokens: {token_usage['total_output_tokens']}")
 
 
-
 def main():
-    parser = argparse.ArgumentParser(description="tgpt: Natural language to bash command tool")
+    parser = argparse.ArgumentParser(description="tgpt: terminal AI agent")
     parser.add_argument("-p", "--prompt", nargs="*", help="Enable prompt mode with natural language prompt")
 
     args = parser.parse_args()

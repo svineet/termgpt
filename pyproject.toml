@@ -23,7 +23,9 @@ dependencies = [
     "openai",
     "requests",
     "langchain", "langgraph", "langchain-community", "langchain-openai",
-    "tavily-python"
+    "tavily-python",
+    "prompt_toolkit",
+    "rich"
 ]
 
 [project.scripts]
