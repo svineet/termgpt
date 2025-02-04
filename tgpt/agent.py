@@ -19,6 +19,8 @@ from rich.markdown import Markdown
 from prompt_toolkit import PromptSession
 
 
+DEFAULT_MODEL = "gpt-4o"
+
 console = Console()
 prompt_session = PromptSession()
 
@@ -75,17 +77,35 @@ class CommandLineAgent:
             self.process_input(user_input)
 
     def process_input(self, user_input):
+        # Added: Check if the input is a direct bash command prefixed with "$ "
+        if user_input.startswith("$ "):
+            bash_command = user_input[2:].strip()
+            console.print(f"Directly executing bash command: {bash_command}")
+            try:
+                result = subprocess.run(
+                    bash_command,
+                    shell=True,
+                    check=True,
+                    text=True,
+                    capture_output=True,
+                )
+                output = result.stdout.strip()
+            except subprocess.CalledProcessError as e:
+                output = f"Error: {e.stderr.strip()}" if e.stderr else str(e)
+            console.print(output)
+            return
+
         for chunk in self.agent_executor.stream(
             {"messages": [HumanMessage(content=user_input)]}, config={"configurable": {"thread_id": "main_user_thread"}}
         ):
-            if 'agent' in chunk:
-                agent_message = chunk['agent']['messages'][0]
+            if "agent" in chunk:
+                agent_message = chunk["agent"]["messages"][0]
                 console.print(Markdown(agent_message.content), end="")
 
                 # Update token usage
-                token_usage = agent_message.response_metadata['token_usage']
-                self.total_input_tokens += token_usage['prompt_tokens']
-                self.total_output_tokens += token_usage['completion_tokens']
+                token_usage = agent_message.response_metadata["token_usage"]
+                self.total_input_tokens += token_usage["prompt_tokens"]
+                self.total_output_tokens += token_usage["completion_tokens"]
         console.print()
 
     def get_token_usage(self):
@@ -96,7 +116,7 @@ class CommandLineAgent:
 
 
 def get_default_agent(OPENAI_API_KEY):
-    llm = ChatOpenAI(model="gpt-4o", api_key=OPENAI_API_KEY)
+    llm = ChatOpenAI(model=DEFAULT_MODEL, api_key=OPENAI_API_KEY)
     tools = [TavilySearchResults(max_results=3), execute_bash_command]
 
     agent = CommandLineAgent(llm, tools, BASH_AGENT_SYSTEM_PROMPT)
